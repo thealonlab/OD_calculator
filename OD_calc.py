@@ -11,7 +11,7 @@ def calc_generations(OD_start,OD_end):
 
 # Streamlit App
 def main():
-    st.title("OD calculator")
+    st.title("Generation time calculator")
 
     # Streamlit input widgets
     OD_start = st.number_input("Enter the OD at the start of the interval:", min_value=0.01, value=0.25, step=0.1)
@@ -26,7 +26,7 @@ def main():
         st.write(f"### The number of generations is {n_generations}")
         st.write(f"### The number of generations per hour is {per_hour}")
 
-    st.title("predict when to harvest/induce")
+    st.title("Estimate time to harvest/induce")
 
     desired_OD = st.number_input("Enter the desired OD:", min_value=0.01, value=0.25, step=0.1)
     current_OD = st.number_input("Enter the current OD:", min_value=0.01, value=0.5, step=0.1)
