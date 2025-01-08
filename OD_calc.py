@@ -18,9 +18,9 @@ def main():
         layout="wide",
     )
 
-    # Add a sidebar for inputs
-    st.sidebar.title("Inputs")
-    st.sidebar.info("Provide input values in the sections below to calculate growth metrics.")
+    # Initialize session state for growth rate
+    if "growth_rate" not in st.session_state:
+        st.session_state.growth_rate = 3.0  # Default value for growth rate
 
     st.title("Generation Time and Growth Estimation")
     st.markdown("This app helps calculate the number of generations and the time required to reach a target OD.")
@@ -56,8 +56,6 @@ def main():
                 help="The time (in minutes) for the interval."
             )
 
-        growth_rate = None  # Initialize the growth rate variable
-
         if st.button("Calculate Generations"):
             # Validate inputs
             if OD_start >= OD_end:
@@ -65,11 +63,11 @@ def main():
             else:
                 # Perform calculations
                 n_generations = calc_generations(OD_start, OD_end)
-                growth_rate = round(n_generations * 60 / Time_delta, 2)
+                st.session_state.growth_rate = round(n_generations * 60 / Time_delta, 2)  # Save growth rate in session state
 
                 # Display metrics
                 col1.metric(label="Generations", value=n_generations)
-                col2.metric(label="Generations per hour", value=growth_rate)
+                col2.metric(label="Generations per hour", value=st.session_state.growth_rate)
 
     # Section 2: Time to Target OD
     st.header("⏱ Estimate Time to Target OD")
@@ -94,12 +92,10 @@ def main():
                 help="The target optical density (OD) for harvesting or induction."
             )
         with col6:
-            # Use the calculated growth rate as the default value, if available
-            default_growth_rate = growth_rate if growth_rate is not None else 3.0
             growth_rate_input = st.number_input(
                 "Growth rate (gen/hr):",
                 min_value=0.01,
-                value=default_growth_rate,
+                value=st.session_state.growth_rate,  # Use session state for the default value
                 step=0.1,
                 help="The growth rate of the culture in generations per hour. Automatically populated from previous step if available."
             )
