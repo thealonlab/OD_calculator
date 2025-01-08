@@ -28,8 +28,8 @@ def main():
 
     st.title("Estimate time to harvest/induce")
 
-    desired_OD = st.number_input("Enter the desired OD:", min_value=0.01, value=0.25, step=0.1)
-    current_OD = st.number_input("Enter the current OD:", min_value=0.01, value=0.5, step=0.1)
+    desired_OD = st.number_input("Enter the desired OD:", min_value=0.01, value=0.5, step=0.1)
+    current_OD = st.number_input("Enter the current OD:", min_value=0.01, value=0.25, step=0.1)
     growth_rate = st.number_input("Enter the growth rate in generations per hour:", min_value=0.01, value=3.0, step=0.1)
 
     if st.button("Time to target"):
