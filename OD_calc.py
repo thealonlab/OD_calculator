@@ -35,7 +35,7 @@ def main():
     if st.button("Time to target"):
         # Calculate insert concentration
         generations_to_target = calc_generations(current_OD,desired_OD)
-        time = generations_to_target / growth_rate
+        time = round(generations_to_target / growth_rate,2)
 
         st.write(f"### The time to target is {time} hours, or {time * 60} minutes")
 
