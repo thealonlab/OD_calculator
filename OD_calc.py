@@ -21,7 +21,7 @@ def main():
     if st.button("Calculate"):
         # Calculate insert concentration
         n_generations = calc_generations(OD_start,OD_end)
-        per_hour = n_generations * 60 / Time_delta
+        per_hour = round(n_generations * 60 / Time_delta,2)
 
         st.write(f"### The number of generations is {n_generations}")
         st.write(f"### The number of generations per hour is {per_hour}")
